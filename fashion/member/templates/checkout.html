@@ -1,0 +1,136 @@
+{% load static %}
+{% include 'header.html' %}
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <div class="breadcrumb__links">
+                        <a href="/">Home</a>
+                        <span>Checkout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Order and Payment Section Begin -->
+<section class="order-payment spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Orders</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Your orders</th>
+                            <th>Description</th>
+                            <th>Total</th>
+                            <th>Action</th> <!-- New column for delete button -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ order.order_description }}</td>
+                            <td>
+                                {% if order.id_coupon %}
+                                     ${{ order.total|floatformat:2 }} (Đã Chiết Khấu: {{ order.id_coupon.discount_value }} vnđ)
+                                {% else %}
+                                    ${{ order.total|floatformat:2 }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if order.payment_status %}
+                                    {% if order.payment_status|last == 0 %}
+                                        <form method="POST" action="{% url 'delete_order_view' order.id_order %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">Xóa</button>
+                                        </form>
+                                    {% else %}
+                                         
+                                    {% endif %}
+                                {% else %}
+                                    
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No orders found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-12">
+                <h3>Payments</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Your Payment</th>
+                            <th>Your order</th>
+                            <th>Payment Status</th>
+                            <th>Order Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payment in payments %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{% if payment.payment_status == 0 %} Chưa thanh toán {% else %} Đã thanh toán {% endif %}</td>
+                            <td>
+                                {% if payment.order_status == 'waiting for confirmation' %} 
+                                Chờ xác nhận
+                                {% elif payment.order_status == 'confirmed'%}
+                                Đã xác nhận
+                                {% else %} 
+                                Đã giao
+
+                                {% endif %}</td>
+                                
+                            <td>
+                                {% if payment.payment_status == 0 %}
+                                <form method="POST" action="{% url 'process_payment_momo' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="payment_id" value="{{ payment.id_payment }}">
+                                    <button type="submit" class="btn btn-primary">Thanh toán</button>
+                                </form>
+                                
+                                {% else %}
+                                <span class="badge badge-success">Đã thanh toán</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if payment.payment_status == 1 and payment.order_status == 'confirmed' %}
+                                    <form method="POST" action="{% url 'confirm_delivery_view' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="payment_id" value="{{ payment.id_payment }}">
+                                        <button type="submit" class="btn btn-success">Đã nhận hàng</button>
+                                    </form>
+                                {% else %}
+                                    {% if payment.payment_status == 1 and payment.order_status == 'delivered successfully' %}
+                                    <span class="badge badge-secondary">Đã Nhận Hàng</span>
+                                    {% else %}
+                                    <span class="badge badge-secondary">Chưa Nhận Hàng</span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No payments found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+</table>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Order and Payment Section End -->
+
+{% include 'footer.html' %}

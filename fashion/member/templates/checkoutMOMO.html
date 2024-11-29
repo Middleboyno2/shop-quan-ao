@@ -1,0 +1,26 @@
+{% load static %}
+{% include 'header.html' %}
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Mã QR thanh toán</h2>
+                <!-- Hiển thị mã QR dựa vào thông tin đơn hàng -->
+                <img src="{% url 'generate_qr_code' %}" alt="MOMO QR Code">
+                <p>Tổng tiền: ${{ order.total }}</p>
+                <p>Mô tả đơn hàng: {{ order.order_description }}</p>
+                <p>Chủ tài Khoản: Vương Tuấn Dương</p>
+                <p>Ghi chú: PM{{order.id_order}}2003</p>
+                <div class="buttons">
+                    <a href="/checkout/">Close</a>
+                    <form method="post" action="{% url 'process_payment_view' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="payment_id" value="{{ payment.id_payment }}">
+                        <button type="submit" class="btn btn-primary">Thanh Toán</button>
+                    </form>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

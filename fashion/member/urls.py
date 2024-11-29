@@ -1,0 +1,37 @@
+from django.contrib import admin
+from django.urls import path
+from member import views
+
+urlpatterns = [
+    path('', views.Home, name='home'),
+    path('Product/<int:id_product>/', views.Product, name='product'),
+    path('add_to_cart/', views.add_to_cart, name='add_to_cart'),
+    path('shop/', views.shop, name='shop'),
+    path('cart/', views.cart, name='cart'),
+    path('checkout/', views.checkout, name='checkout'), 
+    # path('contact/', views.contact, name='contact'),
+    path('shoping-cart/', views.shopping_cart, name='shoping-cart'),
+    path('login/', views.login, name='login'),
+    path('register/', views.register, name='register'),
+    path('profile/', views.profile, name='profile'),
+    path('logout/', views.logout, name='logout'),
+    path('change-password/', views.change_password, name='change_password'),
+    path('wishlist/', views.wishlist, name='wishlist'),
+    path('wishlist/delete/', views.delete_wishlist_item, name='delete_wishlist_item'),
+    path('product/<int:id_product>/', views.product_detail, name='product_detail'),
+    path('wishlist/add/<int:product_id>/', views.add_to_wishlist, name='add_to_wishlist'),
+    path('add_to_cart/<int:product_id>/', views.add_to_cart2, name='add_to_cart'),
+    path('delete-cart-item/', views.delete_cart_item_view, name='delete_cart_item'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('apply_coupon/', views.apply_coupon, name='apply_coupon'),
+    path('order-payment/', views.order_and_payment_view, name='order_payment'),
+    path('order_and_payment/', views.order_and_payment, name='order_and_payment'),
+    path('process-payment/', views.process_payment_view, name='process_payment_view'),
+    path('delete-order/<int:order_id>/', views.delete_order_view, name='delete_order_view'),
+    path('reviews/', views.all_reviews, name='all_reviews'),
+    path('post_review/', views.post_review, name='post_review'),
+    path('confirm_delivery_view/', views.confirm_delivery_view, name='confirm_delivery_view'),
+    path('checkout/momo/', views.process_payment_momo, name='process_payment_momo'),
+    path('generate_qr_code', views.generate_qr_code, name='generate_qr_code'),
+    #path('verify_email/', views.verify_email, name='verify_email'),
+]

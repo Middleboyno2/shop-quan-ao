@@ -1,0 +1,6 @@
+
+
+4. python manage.py runserver
+5. http://127.0.0.1:8000/dj_admin/dashboard/   (cái này là url dashboard admin)
+6. http://127.0.0.1:8000/                      (cái này là url người dùng)
+7. http://127.0.0.1:8000/admin/                (cái này là url admin của django)

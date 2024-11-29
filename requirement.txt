@@ -1,0 +1,9 @@
+numpy
+pandas
+matplotlib
+django
+pymysql
+mysqlclient 
+pipenv
+pandas openpyxl
+qrcode[pil]

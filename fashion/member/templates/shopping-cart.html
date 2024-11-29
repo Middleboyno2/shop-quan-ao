@@ -1,0 +1,127 @@
+{% load static %}
+{% include 'header.html' %}
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+    
+                    <div class="breadcrumb__links">
+                        <a href="/">Home</a>
+                        <span>Shopping cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shopping Cart Section Begin -->
+<section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="shopping__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                
+                                <th>Sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Tổng cộng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for detail in cart_details %}
+                            <tr>
+                                <td class="product__cart__item">
+                                    <div class="product__cart__item__pic">
+                                        <img src="{{ detail.product_image.url }}" alt="{{ detail.id_product.product_name }}" width="160px" height="160px">
+                                    </div>
+                                    <div class="product__cart__item__text">
+                                        <h6>{{ detail.id_product.product_name }}</h6>
+                                    </div>
+                                </td>
+                                <td class="quantity__item">
+                                    <div class="quantity">
+                                        <div class="pro-qty-2">
+                                            <input type="text" value="{{ detail.number }}" readonly>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="cart__price">${{ detail.price }}</td>
+                                <td class="cart__price">${{ detail.product_total }}</td>
+                                <td class="cart__close">
+                                    <button type="button" class="btn btn-danger delete-cart-item" data-cart-detail-id="{{ detail.id }}">Xóa</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="continue__btn">
+                            <a href="/shop/">Tiếp tục mua sắm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="cart__discount">
+                    <h6>Mã giảm giá</h6>
+                    <form method="POST" action="{% url 'order_and_payment' %}">
+                        {% csrf_token %}
+                        <input type="text" name="coupon_code" placeholder="Mã giảm giá">
+                        <button type="submit">Đặt Hàng</button>
+                    </form>
+                </div>
+                <div class="cart__total">
+                    <h6>Tổng giỏ hàng</h6>
+                    <ul>
+                        <li>Tạm tính <span>${{ total_price|floatformat:2 }}</span></li>
+                        <li>Tổng cộng <span>${{ total_price|floatformat:2 }}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shopping Cart Section End -->
+
+{% include 'footer.html' %}
+<script>
+    $(document).ready(function() {
+        // AJAX request to delete CartDetail item
+        $('.delete-cart-item').click(function() {
+            var cartDetailId = $(this).data('cart-detail-id');
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+                var deleteUrl = "{% url 'delete_cart_item' %}";
+                $.ajax({
+                    type: 'POST',
+                    url: deleteUrl,
+                    data: {
+                        'cart_detail_id': cartDetailId,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        // Remove the corresponding table row if deletion is successful
+                        if (response.deleted) {
+                            $('#cart-detail-' + cartDetailId).remove();
+                            // Reload the page after successful deletion
+                            location.reload();
+                        } else {
+                            alert('Không thể xóa sản phẩm khỏi giỏ hàng.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert('Đã xảy ra lỗi trong quá trình xóa sản phẩm khỏi giỏ hàng.');
+                    }
+                });
+            }
+        });
+    });
+    </script>
+    

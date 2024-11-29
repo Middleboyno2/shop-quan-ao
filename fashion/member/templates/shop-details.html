@@ -1,0 +1,116 @@
+{% load static %}
+{% include 'header.html' %}
+
+<!-- Breadcrumb Section Start -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <div class="breadcrumb__links">
+                        <a href="/">Home</a>
+                        <span>Product Detail</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Product Details Section -->
+<section class="shop-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product__details__content">
+                    <img src="{{ product.image_product.url }}" alt="{{ product.product_name }}">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="product__details__text">
+                    <h2>{{ product.product_name }}</h2>
+                    <h3>Price: {{ product.export_price }} $</h3>
+                    <p>{{ product.product_description }}</p>
+                    <div class="rating">
+                    </div>
+                    <div class="product__details__option">
+                        <div class="product__details__option__size">
+                            <span>Size:</span>
+                            <label for="size">{{ product.size }}</label>
+                        </div>
+                        <div class="product__details__option__color">
+                            <span>Color:</span>
+                            <span>{{ product.color }}</span>
+                        </div>
+                        <div class="product__details__last__option">
+                            <ul>
+                                <li><span>SKU:</span> {{ product.sku }}</li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    {% if product.product_quantity <= 0 %}
+                    <div class="product__details__cart__option">
+                        <p class="text-danger">Hết hàng</p>
+                        <form action="#" method="post" class="d-none">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" disabled>
+                            </div>
+                            <div class="form-group">
+                                <select id="coupon" name="coupon" class="form-control" >
+                                    {% for coupon in all_coupons %}
+                                    {% if coupon.discount_type == "discount_product" %}
+                                    <option value="{{ coupon.id_coupon }}">{{ coupon.code }}</option>
+                                    {% endif%}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" disabled>Add to Cart</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="product__details__cart__option">
+                        <form id="add-to-cart-form" action="{% url 'add_to_cart' product.id_product %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="quantity">Quantity:</label>
+                                <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" max="{{ product.product_quantity }}">
+                            </div>
+                            <div class="form-group">
+                                <select id="coupon" name="coupon" class="form-control">
+                                    {% for coupon in coupons %}
+                                    <option value="{{ coupon.id_coupon }}">{{ coupon.code }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                    <div class="product__details__btns__option">
+                        <a href="{% url 'add_to_wishlist' product.id_product %}" class="btn btn-secondary"><i class="fa fa-heart"></i> Add to Wishlist</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
+</div>
+
+{% include 'footer.html' %}
+
+<script>
+    document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
+        var quantityInput = document.getElementById('quantity');
+        var maxQuantity = parseInt(quantityInput.getAttribute('max'));
+        var currentQuantity = parseInt(quantityInput.value);
+        if (currentQuantity > maxQuantity) {
+            event.preventDefault();
+            alert('Số lượng nhập vào không được vượt quá số lượng sản phẩm hiện có.');
+        }
+    });
+</script>

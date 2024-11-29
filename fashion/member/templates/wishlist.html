@@ -1,0 +1,95 @@
+{% load static %}
+
+{% include 'header.html' %}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Wishlist</h4>
+                    <div class="breadcrumb__links">
+                        <a href="/">Home</a>
+                        <span>Wishlist</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Wishlist Section Begin -->
+<section class="wishlist spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                {% if wishlist_products %}
+                    <div class="row" id="wishlist-products">
+                        {% for product in wishlist_products %}
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="{{ product.image_product.url }}">
+                                </div>
+                                <div class="product__item__text">
+                                    <h6>{{ product.product_name }}</h6>
+                                    <a href="/add_to_cart/?product_id={{ product.id_product }}" class="add-cart">+ Add To Cart</a>
+                                    <div class="rating">
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <h5>{{ product.export_price }} $</h5>
+                                    <button class="btn btn-sm btn-danger delete-wishlist-item" data-product-id="{{ product.id_product }}">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Your wishlist is empty.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Wishlist Section End -->
+
+{% include 'footer.html' %}
+
+<!-- JavaScript to handle deleting wishlist items -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lắng nghe sự kiện click vào nút xóa sản phẩm trong Wishlist
+        const deleteButtons = document.querySelectorAll('.delete-wishlist-item');
+        
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                
+                // Gửi request AJAX để xóa sản phẩm khỏi Wishlist
+                fetch(`/wishlist/delete/?product_id=${productId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Xóa sản phẩm khỏi giao diện ngay lập tức
+                        const productCard = this.closest('.product__item');
+                        productCard.remove();
+                    } else {
+                        alert('Failed to delete item from wishlist.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    });
+</script>

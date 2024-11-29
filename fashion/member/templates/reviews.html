@@ -1,0 +1,136 @@
+{% load static %}
+{% include 'header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Reviews</title>
+    <!-- Link Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5; /* Facebook background color */
+        }
+        /* Custom styles for review container */
+        .review-container {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .review-container img {
+            width: 25px; /* Adjust as needed */
+            height: 25px; /* Adjust as needed */
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .review-container .customer-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .review-container .like-btn {
+            color: #007bff; /* Bootstrap primary color */
+            cursor: pointer;
+        }
+        .review-container .like-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                       
+                        <div class="breadcrumb__links">
+                            <a href="/">Home</a>
+                            <span>Reviews</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container mt-8">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-12">
+                <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+                    <div class="card-body p-4">
+                        <!-- Post a Review Section -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form action="{% url 'post_review' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="id_star">Star rating:</label>
+                                        <select class="form-control" name="star" id="id_star">
+                                            <option value="1">&#9733;</option>
+                                            <option value="2">&#9733;&#9733;</option>
+                                            <option value="3">&#9733;&#9733;&#9733;</option>
+                                            <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                                            <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="id_review_description">Review description:</label>
+                                        <textarea class="form-control" name="review_description" id="id_review_description" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">POST</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Reviews Section -->
+                        {% for review in reviews %}
+                            <div class="card mb-4 review-container">
+                                <div class="card-body">
+                                    <div class="customer-info">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <img src="https://europe1.discourse-cdn.com/arduino/original/4X/b/8/6/b866973d0a9738af645201b3c4f4e4fe30021450.png" alt="Avatar">
+                                            <h5 class="card-title">{{ review.id_customer.name_customer }}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="star-rating">
+                                        {% for i in 1..5 %}
+                                            {% if i <= review.star %}
+                                                &#9733; <!-- Full star -->
+                                            {% else %}
+                                                &#9734; <!-- Empty star -->
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="review-description">
+                                        <p class="card-text">{{ review.review_description }}</p>
+                                        <a href="#" class="like-btn">Like</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Like button functionality -->
+    <script>
+        $(document).ready(function() {
+            $('.like-btn').click(function(e) {
+                e.preventDefault();
+                $(this).toggleClass('text-primary');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2404 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="{%static 'css/mystyle.css' %}"/>
+    
+    <link type="text/css" rel="stylesheet" href="{%static 'css/all.min.css' %}"/>
+
+    <link type="text/css" rel="stylesheet" href="{%static 'css/owl.carousel.min.css' %}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{%static 'js/all.min.js' %}" ></script>
+    <script src="{%static 'js/owl.carousel.min.js' %}"></script> 
+    <script src="{%static 'js/myscript.js' %}" ></script>
+    <script src="{%static 'js/tablesort.js' %}" ></script>
+    <script src="https://unpkg.com/akar-icons-fonts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.cjs.map"></script>
+
+    
+</head>
+<body>
+    <header>
+        <div class="container-fluid" id="header">
+            <div class="row">
+                <!-- logo -->
+                <div class="col" style="padding: 15px 0 0 20px;">
+                    <div class="head">
+                        <button
+                        type="button"
+                        className="sidebar-burger"
+                        onClick="toggleSidebar()"
+                        >
+                        <i class="ai-three-line-horizontal"></i>
+                        </button>
+                        <img src="{% static 'images/logo/havuda-high-resolution-logo-black-transparent.png' %}" width="125" height="55" />
+                    </div> 
+                    <aside class="sidebar">
+                        <header>
+                            {% comment %} <button
+                            type="button"
+                            className="sidebar-burger"
+                            onClick="toggleSidebar()"
+                            >
+                            <i class="ai-three-line-horizontal"></i>
+                            </button>
+                            <img src="{% static 'images/logo/havuda-high-resolution-logo-black-transparent.png' %}" /> {% endcomment %}
+                        </header>  
+                        <ul>
+                            <li>
+                                <button type="button"  data-content-id="content1" onclick="onClick(this)">
+                                    <i class="ai-home-alt1"></i>
+                                    <p>Home</p>
+                                </button>
+                            </li>
+                            <li>
+                                <button  type="button" data-content-id="content2" onclick="onClick(this)">
+                                    
+                                    <i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
+                                        <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5"/>
+                                        <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96q.04-.245.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 1 1 12z"/>
+                                    </svg>
+                                    </i>
+                                    <p>Customer</p> 
+
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" data-content-id="content3" onclick="onClick(this)">
+                                    <i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                                            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                                          </svg>
+                                    </i>
+                                    <p>Employee</p>
+                                    
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" data-content-id="content4" onclick="onClick(this)">
+                                    <i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                          </svg>
+                                    </i>
+                                    <p>Account</p>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" data-content-id="content5" onclick="onClick(this)">
+                                    <i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+                                          </svg>
+                                    </i>
+                                    <p>Category</p>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" onclick="onClick(this)" >
+                                    <i class="ai-gear"></i>
+                                    <p>Coupon</p>
+                                    <i class="ai-chevron-down-small"></i>
+                                </button>
+                                <div class="sub-menu">
+                                    <ul>
+                                        <li>
+                                            <button type="button" data-content-id="content6" onclick="onClick(this)"><p>Management</p></button>
+                                        </li>
+                                        <li>
+                                            <button type="button" data-content-id="content7" onclick="onClick(this)"><p>Setup</p></button>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <button type="button" onclick="onClick(this)">
+                                    <i class="ai-folder-add"></i>
+                                    <p>Product</p>
+                                    <i class="ai-chevron-down-small"></i>
+                                </button>
+                                <div class="sub-menu">
+                                    <ul>
+                                        <li>
+                                            <button type="button" data-content-id="content8" onclick="onClick(this)"><p>Management</p></button>
+                                        </li>
+                                        <li>
+                                            <button type="button" data-content-id="content9" onclick="onClick(this)"><p>on/off display product</p></button>
+                                        </li>
+                                        <li>
+                                            <button type="button" data-content-id="content10" onclick="onClick(this)"><p>import product</p></button>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <button type="button" onclick="onClick(this)">
+                                    <i class="ai-person"></i>
+                                    <p>Cart</p>
+                                    <i class="ai-chevron-down-small"></i>
+                                </button>
+                                <div class="sub-menu">
+                                    <ul>
+                                        <li>
+                                            <button type="button" data-content-id="content11" onclick="onClick(this)"><p>Management</p></button>
+                                        </li>
+                                        <li>
+                                            <button type="button" data-content-id="content12" onclick="onClick(this)"><p>Cart Detail</p></button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <button type="button" data-content-id="content13" onclick="onClick(this)">
+                                    <i class="ai-cart"></i>
+                                    <p>Order</p>
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button" data-content-id="content14" onclick="onClick(this)">
+                                    <i class="ai-bell"></i>
+                                    <p>Notification</p>
+                                </button>
+                            </li>
+                             
+                        </ul>
+                        {% comment %} <a href="#" class="option-link" data-content-id="content1">Lựa chọn 1</a>
+                        <a href="#" class="option-link" data-content-id="content2">Lựa chọn 2</a>
+                        <a href="#" class="option-link" data-content-id="content3">Lựa chọn 3</a> {% endcomment %}
+                    </aside>    
+                </div>
+                <!-- infor -->
+                <div class="col bnt">
+                    <div class="bnt_list dropdown">
+                        
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+                        </svg>
+                        
+
+                        {% comment %} <div class="dropdown-content">
+                            {% if messages %}
+                            <div class="messages">
+                            {% for message in messages %}
+                            
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            
+                            {% endfor %}
+                            {% endif %}
+                            
+                          
+                        </div> {% endcomment %}
+                    </div>
+
+                    
+            
+                    <div class="bnt_list">
+                         <p> Welcome, <a href="">{{ username }}</a></p> 
+                        {% comment %} <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+                        </svg> {% endcomment %}
+                        
+                    </div>
+                    <div class="bnt_user dropdown">
+                        
+                        <img src="{% static 'images/image_user/image_user_01.jpg' %}" alt="Logo" width="45px" height="45px" class="d-inline-block align-text-top custom_icon_user">
+                        
+                        <div class="dropdown-content">
+                            <div class="select">
+                                <div class="edit_svg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                                    </svg>
+                                </div>
+                                <a href="{% url 'login_admin' %}">Log out</a>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>    
+            </div>        
+        </div>
+        <div class="container-fluid" style="min-height: 84px "> </div>
+
+    </header>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+
+    <div class="container-fluid" style="min-height:600px; padding-top: 15px;">
+        {% comment %} thống kê {% endcomment %}
+        <div class="content" id="content1" style="display: block;">
+            <div class="statistic">
+                <div class="statistic_con1">
+                    <p>Total Revenue</p>
+                    <p><span id="revenue-counter_1">0</span></p>
+                </div>
+                <div class="statistic_con2">
+                    <p>Inventory</p>
+                    <p><span id="revenue-counter_2">0</span></p>
+                </div>
+                <div class="statistic_con3">
+                    <p>total_order</p>
+                    <p><span id="revenue-counter_3">0</span></p> 
+                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        function countUp(elementId, targetValue) {
+                            const counter = document.getElementById(elementId);
+                            let currentValue = 0;
+            
+                            // Trường hợp đặc biệt khi targetValue = 0
+                            if (targetValue === 0) {
+                                counter.textContent = "0";
+                                return;
+                            }
+            
+                            const increment = Math.ceil(targetValue / 100);
+                            const interval = setInterval(() => {
+                                currentValue += increment;
+                                counter.textContent = currentValue.toLocaleString();
+                                if (currentValue >= targetValue) {
+                                    clearInterval(interval);
+                                    counter.textContent = targetValue.toLocaleString();
+                                }
+                            }, 20);
+                        }
+            
+                        // Gọi hàm countUp cho từng phần tử
+                        countUp("revenue-counter_2", {{ inventory }});
+                        countUp("revenue-counter_1", {{ total_revenue_ee }});
+                        
+                        countUp("revenue-counter_3", {{ total_order }}); 
+                    });
+                </script>
+            </div>
+                                    
+            
+            <div class="setup_admin">
+                <canvas id="revenueChart" style="max-height: 300px; width: 100%;border: 1px solid; border-radius: 10px;"></canvas>
+            
+                <script>
+                const dailyRevenueData = {{ daily_revenue | safe }};
+                const monthlyRevenueData = {{ monthly_revenue | safe }};
+                
+                const ctx = document.getElementById('revenueChart').getContext('2d');
+                
+                // Vẽ biểu đồ đường cho doanh thu hàng ngày và hàng tháng
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        datasets: [
+                            {
+                                label: 'Doanh thu ngày',
+                                data: dailyRevenueData,
+                                borderColor: 'rgb(75, 192, 192)',
+                                fill: false,
+                            },
+                            {
+                                label: 'Doanh thu hàng tháng',
+                                data: monthlyRevenueData,
+                                borderColor: 'rgb(54, 162, 235)',
+                                fill: false,
+                                hidden: true
+                            },
+                        ],
+                    },
+                    // Các tùy chọn khác cho biểu đồ (ví dụ: title, axes,...)
+                });
+                </script>
+            </div>
+        </div>
+        {% comment %} khách hàng {% endcomment %}
+        <div class="content" id="content2" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input1" class="input" name="text1" type="text" data-table-id="table1">
+                    
+                </div>
+                <div class="dynamic">
+                
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_customer_add"> Add</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop_customer_add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="mb-3">
+                                            <label for="user_id">Tên tài khoản</label>
+                                            <select name="user_id" id="user_id">
+                                                
+                                                {% for user in unused_user_ids %}
+                                                    <option value="{{ user.id_user }}">{{ user.token }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            {{ customer_form.name_customer.label_tag }}
+                                            {{ customer_form.name_customer }}
+                                        </div>
+                                        <div class="mb-3">
+                                            {{ customer_form.email.label_tag }}
+                                            {{ customer_form.email }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ customer_form.phone.label_tag }}
+                                            {{ customer_form.phone }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ customer_form.address.label_tag }}
+                                            {{ customer_form.address }}
+                                        </div>
+                                             
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_customer">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-sortable" id="table1">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>ID User</th>
+                        <th>Name customer</th>
+                        <th>Mail</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in all_customer_by_id%}
+                    
+                    <tr>
+                        <td>{{obj.id_customer}}</td>
+                        <td>{{obj.id_user.id_user}}</td>
+                        <td>{{obj.name_customer}}</td>
+                        <td>{{obj.email}}</td>
+                        <td>{{obj.phone}}</td>
+                        <td>{{obj.address}}</td>
+                        <td>
+                            <div class="setup"> 
+                                <button class ="icon-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop_customer_edit_{{obj.id_customer}}" >  <i class="material-icons left">cloud</i>Edit</button>
+                                <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <button name="delete_customer" class ="icon-delete" value = "{{obj.id_customer}}"><i class="material-icons left" >delete</i>Delete</button>
+                                </form>
+
+                                <div class="modal fade" id="staticBackdrop_customer_edit_{{obj.id_customer}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <input type="hidden" name="customer_id" value="{{obj.id_customer}}">
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="user_id">Tên tài khoản</label>
+                                                        <select name="user_id" id="user_id">
+                                                            <option value="{{obj.id_user.id_user}}" selected>{{obj.id_user.token}}</option>
+                                                            {% for user in unused_user_ids %}
+                                                            <option value="{{ user.id_user }}">{{ user.token }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+            
+                                                    <div class="mb-3">
+                                                        {{ customer_form.name_customer.label_tag }}
+                                                        {{ customer_form.name_customer }}
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        {{ customer_form.email.label_tag }}
+                                                        {{ customer_form.email }}
+                                                    </div>
+                                            
+                                                    <div class="mb-3">
+                                                        {{ customer_form.phone.label_tag }}
+                                                        {{ customer_form.phone }}
+                                                    </div>
+                                            
+                                                    <div class="mb-3">
+                                                        {{ customer_form.address.label_tag }}
+                                                        {{ customer_form.address }}
+                                                    </div>
+                                            
+                                                                            
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id = "submit-edit-customer" name="edit_customer">Edit</button>
+                                                </div>
+                                                
+            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% comment %} nhân viên {% endcomment %}
+        <div class="content" id="content3" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input2" class="input" name="text2" type="text" data-table-id="table2">
+                    
+                </div>
+                <div class="dynamic">
+                    
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_employee_add"> Add</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop_employee_add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Employee</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            {{ employee_form.emp_name.label_tag }}
+                                            {{ employee_form.emp_name }}
+                                        </div>
+                                        <div class="mb-3">
+                                            {{ employee_form.email.label_tag }}
+                                            {{ employee_form.email }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ employee_form.phone.label_tag }}
+                                            {{ employee_form.phone }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ employee_form.address.label_tag }}
+                                            {{ employee_form.address }}
+                                        </div>
+                                
+                                
+                                        <div class="mb-3">
+                                            {{ employee_form.salary.label_tag }}
+                                            {{ employee_form.salary }}
+                                        </div>
+                                
+                                                                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_employee">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-sortable" id="table2">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Employee name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>salary</th>
+
+                        <th>action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in all_employee%}
+                    
+                    <tr>
+                        <td>{{obj.id_emp}}</td>
+                        <td>{{obj.emp_name}}</td>
+                        <td>{{obj.email}}</td>
+                        <td>{{obj.phone}}</td>
+                        <td>{{obj.address}}</td>
+                        <td>{{obj.salary}}</td>
+                        <td>
+                            <div class="setup"> 
+                                <button class ="icon-edit" value="{{obj.id_emp}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_emp_edit" >  <i class="material-icons left">cloud</i>Edit</button>
+                                <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <button name="delete_employee" class ="icon-delete" value = "{{obj.id_emp}}"><i class="material-icons left" >delete</i>Delete</button>
+                                </form>
+
+                                <div class="modal fade" id="staticBackdrop_emp_edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        {{ employee_form.emp_name.label_tag }}
+                                                        {{ employee_form.emp_name }}
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        {{ employee_form.email.label_tag }}
+                                                        {{ employee_form.email }}
+                                                    </div>
+                                            
+                                                    <div class="mb-3">
+                                                        {{ employee_form.phone.label_tag }}
+                                                        {{ employee_form.phone }}
+                                                    </div>
+                                            
+                                                    <div class="mb-3">
+                                                        {{ employee_form.address.label_tag }}
+                                                        {{ employee_form.address }}
+                                                    </div>
+                                            
+                                            
+                                                    <div class="mb-3">
+                                                        {{ employee_form.salary.label_tag }}
+                                                        {{ employee_form.salary }}
+                                                    </div>
+                                            
+                                                                            
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id = "submit-edit-emp" name="edit_employee">Edit</button>
+                                                </div>
+                                                
+            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% comment %} User {% endcomment %}
+        <div class="content" id="content4" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input3" class="input" name="text3" type="text" data-table-id="table3">
+                    
+                </div>
+                <div class="dynamic">
+                    
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_user_add"> Add</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop_user_add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            {{ user_form.avatar.label_tag }}
+                                            {{ user_form.avatar }}
+                                        </div>
+                                        <div class="mb-3">
+                                            {{ user_form.account_type.label_tag }}
+                                            {{ user_form.account_type }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ user_form.password.label_tag }}
+                                            {{ user_form.password }}
+                                        </div>
+                                
+                                                                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_user">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-sortable" id="table3">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Avatar</th>
+                        <th>Account type</th>
+                        <th>token</th>
+                        <th>password</th>
+                        <th>create by</th>
+                        <th>update by</th>
+                        <th>action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in all_user%}
+                    
+                    <tr>
+                        <td>{{obj.id_user}}</td>
+                        <td><img src="{{obj.avatar.url}}" width="80" height="100" /></td>
+                        <td>{{obj.account_type}}</td>
+                        <td>{{obj.token}}</td>
+                        <td>{{obj.password}}</td>
+                        <td>{{obj.create_by}}</td>
+                        <td>{{obj.update_by}}</td>
+                        <td>
+                            <div class="setup"> 
+                                <button class ="icon-edit" value="{{obj.id_user}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_user_edit" >  <i class="material-icons left">cloud</i>Edit</button>
+                                <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <button name="delete_user" class ="icon-delete" value = "{{obj.id_user}}"><i class="material-icons left" >delete</i>Delete</button>
+                                </form>
+
+                                <div class="modal fade" id="staticBackdrop_user_edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        {{ user_form.avatar.label_tag }}
+                                                        {{ user_form.avatar }}
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        {{ user_form.account_type.label_tag }}
+                                                        {{ user_form.account_type }}
+                                                    </div>
+                                            
+                                                    <div class="mb-3">
+                                                        {{ user_form.password.label_tag }}
+                                                        {{ user_form.password }}
+                                                    </div>
+                                                                            
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id = "submit-edit-user" name="edit_user">Edit</button>
+                                                </div>
+                                                
+            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        {% comment %} Category {% endcomment %}
+        <div class="content" id="content5" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input4" class="input" name="text4" type="text" data-table-id="table4">
+                    
+                </div>
+                <div class="dynamic">
+                    
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_category_add"> Add</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop_category_add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            {{ category_form.category_name.label_tag }}
+                                            {{ category_form.category_name }}
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            {{ category_form.icon.label_tag }}
+                                            {{ category_form.icon }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ category_form.image_banner.label_tag }}
+                                            {{ category_form.image_banner }}
+                                        </div>
+                                
+                                                                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_category">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-sortable" id="table4">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Category name</th>
+                        <th>icon</th>
+                        <th>Banner</th>
+                        <th>create by</th>
+                        <th>update by</th>
+                        <th>action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in all_category%}
+                    
+                    <tr>
+                        <td>{{obj.id_category}}</td>
+                        <td>{{obj.category_name}}</td>
+                        <td><img src="{{obj.icon.url}}" width="80" height="100" /></td>
+                        <td><img src="{{obj.image_banner.url}}" width="150" height="100" /></td>
+                        <td>{{obj.create_by}}</td>
+                        <td>{{obj.update_by}}</td>
+                        <td>
+                            <div class="setup"> 
+                                <button class ="icon-edit" value="{{obj.id_category}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_category_edit" >  <i class="material-icons left">cloud</i>Edit</button>
+                                <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <button name="delete_category" class ="icon-delete" value = "{{obj.id_category}}"><i class="material-icons left" >delete</i>Delete</button>
+                                </form>
+
+                                <div class="modal fade" id="staticBackdrop_category_edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        {{ category_form.category_name.label_tag }}
+                                                        {{ category_form.category_name }}
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        {{ category_form.icon.label_tag }}
+                                                        {{ category_form.icon }}
+                                                    </div>
+                                            
+                                                    <div class="mb-3">
+                                                        {{ category_form.image_banner.label_tag }}
+                                                        {{ category_form.image_banner }}
+                                                    </div>
+                                                                            
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id = "submit-edit-category" name="edit_category">Edit</button>
+                                                </div>
+                                                
+            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% comment %} Coupons_management {% endcomment %}
+        <div class="content" id="content6" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input5" class="input" name="text5" type="text" data-table-id="table5">
+                    
+                </div>
+                <div class="dynamic">
+                    
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_coupon_add"> Add</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop_coupon_add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            {{ coupon_form.code.label_tag }}
+                                            {{ coupon_form.code }}
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            {{ coupon_form.discount_value.label_tag }}
+                                            {{ coupon_form.discount_value }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ coupon_form.discount_type.label_tag }}
+                                            {{ coupon_form.discount_type }}
+                                        </div>
+
+                                        <div class="mb-3">
+                                            {{ coupon_form.time_used.label_tag }}
+                                            {{ coupon_form.time_used }}
+                                        </div>
+
+                                        <div class="mb-3">
+                                            {{ coupon_form.start_date.label_tag }}
+                                            {{ coupon_form.start_date }}
+                                        </div>
+                                
+                                                                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_coupon">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-sortable" id="table5">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Code</th>
+                        <th>Discount Value</th>
+                        <th>Discount Type</th>
+                        <th>Time Used</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Creat By</th>
+                        <th>Update By</th>
+                        <th>Action</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in all_coupon%}
+                    
+                    <tr>
+                        <td>{{obj.id_coupon}}</td>
+                        <td>{{obj.code}}</td>
+                        <td>{{obj.discount_value}}</td>
+                        <td>{{obj.discount_type}}</td>
+                        <td>{{obj.time_used}}</td>
+                        <td>{{obj.start_date|date:"Y M d"}}</td>
+                        <td>{{obj.end_date|date:"Y M d"}}</td>
+                        <td>{{obj.create_by}}</td>
+                        <td>{{obj.update_by}}</td>
+                        <td>
+                            <div class="setup"> 
+                                <button class ="icon-edit" value="{{obj.id_coupon}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_coupon_edit" >  <i class="material-icons left">cloud</i>Edit</button>
+                                <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <button name="delete_coupon" class ="icon-delete" value = "{{obj.id_coupon}}"><i class="material-icons left" >delete</i>Delete</button>
+                                </form>
+
+                                <div class="modal fade" id="staticBackdrop_coupon_edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        {{ coupon_form.code.label_tag }}
+                                                        {{ coupon_form.code }}
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        {{ coupon_form.discount_value.label_tag }}
+                                                        {{ coupon_form.discount_value }}
+                                                    </div>
+                                            
+                                                    <div class="mb-3">
+                                                        {{ coupon_form.discount_type.label_tag }}
+                                                        {{ coupon_form.discount_type }}
+                                                    </div>
+            
+                                                    <div class="mb-3">
+                                                        {{ coupon_form.time_used.label_tag }}
+                                                        {{ coupon_form.time_used }}
+                                                    </div>
+            
+                                                    <div class="mb-3">
+                                                        {{ coupon_form.start_date.label_tag }}
+                                                        {{ coupon_form.start_date }}
+                                                    </div>
+                                                                            
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id = "submit-edit-coupon" name="edit_coupon">Edit</button>
+                                                </div>
+                                                
+            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% comment %} Coupons_products {% endcomment %}
+        <div class="content" id="content7" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input6" class="input" name="text6" type="text" data-table-id="table6">
+                    
+                </div>
+                <div class="dynamic">
+                    
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_product_coupon_add"> Add</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop_product_coupon_add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">ADD PRODUCT-COUPON</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            {{ coupon_form.code.label_tag }}
+                                            <select name="coupon_id" id="coupon_id">
+                                                
+                                                {% for coupon in all_coupon %}
+
+                                                {% if coupon.id_coupon == obj.id_coupon.id_coupon%}
+                                                <option value="{{ coupon.id_coupon }}" selected>{{ coupon.code }}</option>
+                                                {% endif%}
+
+                                                {% if coupon.discount_type == 'discount_product' %}
+                                                <option value="{{ coupon.id_coupon }}">{{ coupon.code }}</option>
+                                                {% endif%}
+
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            {{ add_product_form.product_name.label_tag }}
+                                            <select name="product_name" id="product_name">
+                                                
+                                                {% for product_name in all_product_name %}
+                                                    
+                                                    {% if product_name == obj.id_product.product_name%}
+                                                    <option value="{{ product_name }}" selected>{{ product_name }}</option>
+                                                    {% endif%}
+
+                                                    <option value="{{ product_name }}">{{ product_name }}</option>
+                                                
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                                                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_product_coupon">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table table-sortable" id="table6">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>ID Coupon</th>
+                        <th>code</th>
+                        <th>ID Product</th>
+                        <th>Product_name</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in all_product_coupon%}
+                    
+                    <tr>
+                        <td>{{obj.id}}</td>
+                        <td>{{obj.id_coupon.id_coupon}}</td>
+                        <td>{{obj.id_coupon.code}}</td>
+                        <td>{{obj.id_product.id_product}}</td>
+                        <td>{{obj.id_product.product_name}}</td>
+                        <td><img src="{{obj.id_product.image_product.url}}" width="80" height="100" /></td>
+                        
+                        <td>
+                            <div class="setup"> 
+                                <button class ="icon-edit" value="{{obj.id}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_product_coupon_edit_{{obj.id}}" >  <i class="material-icons left">cloud</i>Edit</button>
+                                <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <button name="delete_product_coupon" class ="icon-delete" value = "{{obj.id}}"><i class="material-icons left" >delete</i>Delete</button>
+                                </form>
+
+                                <div class="modal fade" id="staticBackdrop_product_coupon_edit_{{obj.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <input type="text" name = "id_product_coupon" value="{{obj.id}}" />
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        {{ coupon_form.code.label_tag }}
+                                                        <select name="coupon_id" id="coupon_id">
+                                                            
+                                                            {% for coupon in all_coupon %}
+            
+                                                            {% if coupon.id_coupon == obj.id_coupon.id_coupon%}
+                                                            <option value="{{ coupon.id_coupon }}" selected>{{ coupon.code }}</option>
+                                                            {% endif%}
+            
+                                                            {% if coupon.discount_type == 'discount_product' %}
+                                                            <option value="{{ coupon.id_coupon }}">{{ coupon.code }}</option>
+                                                            {% endif%}
+            
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        {{ add_product_form.product_name.label_tag }}
+                                                        <select name="product_id" id="product_sku">
+                                                            {% for product in all_product %}
+
+                                                            {% if product.id_product == obj.id_product.id_product%}
+                                                            <option value="{{ product.id_product }}" selected>{{ product.sku }}</option>
+                                                            {% endif%}
+
+                                                            <option value="{{ product.id_product }}">{{ product.sku }}</option>
+                                                            
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                                            
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id = "submit-edit-product-coupon" name="edit_product_coupon">Edit</button>
+                                                </div>
+                                                
+            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+        </div>
+        {% comment %} product_management {% endcomment %}
+        <div class="content" id="content8" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input7" class="input" name="text7" type="text" data-table-id="table7">
+                    
+                </div>
+                <div class="dynamic">
+                    
+                    <button class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_import"> Import</button>
+                    <div class="modal fade" id="staticBackdrop_import" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="post" enctype="multipart/form-data" action="{% url 'dashboard' %}">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Import Products</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="excel_file">select file</label>
+                                            <input type="file" name="excel_file" accept=".xlsx" required>
+                                        </div>
+                                          
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name= "import_excel">submit</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Export ra file excel -->
+                    
+                        
+                        
+                    <button class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_export"> Export</button>
+                    
+                    
+                    <div class="modal fade" id="staticBackdrop_export" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="post" enctype="multipart/form-data" action="{% url 'dashboard' %}">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Export Products</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="filename">Tên file:</label>
+                                            <input type="text" id="filename" name="filename" value="products.xlsx">
+                                        </div>
+                                          
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name= "export_excel">submit</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Add product -->
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Add</button>
+                    
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            {{ add_product_form.product_name.label_tag }}
+                                            {{ add_product_form.product_name }}
+                                        </div>
+                                        <div class="mb-3">
+                                            {{ add_product_form.sku.label_tag }}
+                                            {{ add_product_form.sku }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ add_product_form.id_category.label_tag }}
+                                            {{ add_product_form.id_category }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ add_product_form.export_price.label_tag }}
+                                            {{ add_product_form.export_price }}
+                                        </div>
+                                
+                                
+                                        <div class="mb-3">
+                                            {{ add_product_form.image_product.label_tag }}
+                                            {{ add_product_form.image_product }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ add_product_form.brand.label_tag }}
+                                            {{ add_product_form.brand }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ add_product_form.size.label_tag }}
+                                            {{ add_product_form.size }}
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{ add_product_form.color.label_tag }}
+                                            {{ add_product_form.color }}
+                                        </div>
+
+                                        <div class="mb-3">
+                                            {{ add_product_form.status.label_tag }}
+                                            {{ add_product_form.status }}
+                                        </div>
+                                        
+                                        <div class="mb-3" style="height: 150px;">
+                                            {{ add_product_form.product_description.label_tag }}
+                                            {{ add_product_form.product_description }}
+                                        </div>       
+                                                                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_product">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <table class="table table-sortable" id="table7">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>product_name</th>
+                        <th>sku</th>
+                        <th>category</th>
+                        <th>export_price</th>
+                        <th>product_quantity</th>
+                        <th>product_description</th>
+                        <th>image_product</th>
+                        <th>brand</th>
+                        <th>size</th>
+                        <th>color</th>
+                        <th>create_by</th>
+                        <th>update_by</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                
+                    </tfoot>
+                <tbody>
+                        
+                        {% for obj in all_product%}
+                        
+                        <tr>
+                            <td>{{obj.id_product}}</td>
+                            <td>{{obj.product_name}}</td>
+                            <td>{{obj.sku}}</td>
+                            <td>{{obj.id_category}}</td>
+                            <td>{{obj.export_price}}</td>
+                            <td>{{obj.product_quantity}}</td>
+                            <td>{{obj.product_description}}</td>
+                            <td><img src="{{obj.image_product.url}}" width="80" height="100" /></td>
+                            <td>{{obj.brand}}</td>
+                            <td>{{obj.size}}</td>
+                            <td>{{obj.color}}</td>
+                            <td>{{obj.create_by}}</td>
+                            <td>{{obj.update_by}}</td>
+                            
+                            <td>
+                                <div class="setup"> 
+                                    <button class ="icon-edit" value="{{obj.id_product}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_edit" >  <i class="material-icons left">cloud</i>Edit</button>
+                                    <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <button name="delete_product" class ="icon-delete" value = "{{obj.id_product}}"><i class="material-icons left" >delete</i>Delete</button>
+                                    </form>
+                                    
+                                    <div class="modal fade" id="staticBackdrop_edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">EDIT</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            {{ add_product_form.product_name.label_tag }}
+                                                            {{ add_product_form.product_name }}
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            {{ add_product_form.sku.label_tag }}
+                                                            {{ add_product_form.sku }}
+                                                        </div>
+                                                
+                                                        <div class="mb-3">
+                                                            {{ add_product_form.id_category.label_tag }}
+                                                            {{ add_product_form.id_category }}
+                                                        </div>
+                                                
+                                                        <div class="mb-3">
+                                                            {{ add_product_form.export_price.label_tag }}
+                                                            {{ add_product_form.export_price }}
+                                                        </div>
+                                            
+                                                
+                                                        <div class="mb-3">
+                                                            {{ add_product_form.image_product.label_tag }}
+                                                            {{ add_product_form.image_product }}
+                                                        </div>
+                                                
+                                                        <div class="mb-3">
+                                                            {{ add_product_form.brand.label_tag }}
+                                                            {{ add_product_form.brand }}
+                                                        </div>
+                                                
+                                                        <div class="mb-3">
+                                                            {{ add_product_form.size.label_tag }}
+                                                            {{ add_product_form.size }}
+                                                        </div>
+                                                
+                                                        <div class="mb-3">
+                                                            {{ add_product_form.color.label_tag }}
+                                                            {{ add_product_form.color }}
+                                                        </div>
+                        
+                                                        {% comment %} <div class="mb-3">
+                                                            {{ add_product_form.status.label_tag }}
+                                                            {{ add_product_form.status }}
+                                                        </div> {% endcomment %}
+                                                        
+                                                        <div class="mb-3" style="height: 150px;">
+                                                            {{ add_product_form.product_description.label_tag }}
+                                                            {{ add_product_form.product_description }}
+                                                        </div>  
+                                                        
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" id="submit-edit-product" name="edit_product" >Edit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>           
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    
+                </tbody>
+            </table>
+            
+
+
+            
+
+
+        </div>
+        {% comment %} on/off display product {% endcomment %}
+        <div class="content" id="content9" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input8" class="input" name="text8" type="text" data-table-id="table8">
+                    
+                </div>
+                
+            </div>
+            <table class="table table-sortable" id="table8">
+                <thead class="table-light">
+                    <tr>
+                        <th>product_name</th>
+                        <th>image_product</th>
+                        <th>product_quantity</th>
+                        <th>size</th>
+                        <th>color</th>
+                        <th>status</th>
+                        <th>activate</th>
+                    </tr>
+                </thead>
+
+                <form method="post" action="{% url 'dashboard' %}">
+                    {% csrf_token %}
+                    <tbody>
+
+                        {% for obj in all_product %}
+                        
+                        <tr>
+                            <td>{{obj.product_name}}</td>
+                            <td><img src="{{obj.image_product.url}}" width="80" height="100" /></td>
+                            <td>{{obj.product_quantity}}</td> 
+                            <td>{{obj.size}}</td>
+                            <td>{{obj.color}}</td>
+                            <td>{{obj.status}}</td>
+                            <td>
+                                <div class="checkbox-wrapper-51 setup">     
+                                    <input type="hidden" name="product_id_{{ forloop.counter }}" value="{{ obj.id_product }}">             
+                                    <input type="checkbox" id="cbx-{{ obj.id_product }}" name="activate_{{ obj.id_product }}">
+                                    <label class="toggle" for="cbx-{{obj.id_product}}">
+                                        <span>
+                                            <svg viewBox="0 0 10 10" height="15px" width="15px">
+                                            <path d="M5,1 L5,1 C2.790861,1 1,2.790861 1,5 L1,5 C1,7.209139 2.790861,9 5,9 L5,9 C7.209139,9 9,7.209139 9,5 L9,5 C9,2.790861 7.209139,1 5,1 L5,9 L5,1 Z"></path>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td> 
+                        </tr> 
+                        
+                            <script>
+                                const isActive{{ obj.id_product }} = {{ obj.activate|yesno:"true,false" }};
+                                const checkbox{{ obj.id_product }} = document.getElementById('cbx-{{ obj.id_product }}');
+                                checkbox{{ obj.id_product }}.checked = isActive{{ obj.id_product }};
+
+                            </script> 
+                            
+                            
+                        {% endfor %} 
+                        
+                    </tbody>
+                    <div class="dynamic">
+                        <button type="submit" name = "update_activate" class="learn-more" style="position: fixed; top:95px; right: 20px;">Cập nhật trạng thái</button>
+                    </div>
+                    
+                </form>
+
+            </table>  
+                    
+        </div>
+
+
+        {% comment %} import product {% endcomment %}
+        <div class="content" id="content10" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input9" class="input" name="text9" type="text" data-table-id="table9">
+                    
+                </div>
+                <div class="dynamic">
+                    <button class="learn-more"> Import</button>
+                    <button class="learn-more"> Export</button>
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdropImportProduct"> Add</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdropImportProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Import Product</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="mb-3">
+                                            {{ add_product_form.product_name.label_tag }}
+                                            <select name="product_id" id="product_sku">
+                                                {% for product in all_product %}
+
+                                                <option value="{{ product.id_product }}">{{ product.sku }}</option>
+                                                
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            {{import_product_form.import_quantity.label_tag}}
+                                            <input type="number" name="import_quantity" required="" id="id_import_quantity" >
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{import_product_form.import_price.label_tag}}
+                                            <input type="number" name="import_price" required="" id="id_import_price">
+                                        </div>
+                                
+                                        <div class="mb-3">
+                                            {{import_product_form.supplier.label_tag}}
+                                            <input type="text" name="supplier" required="" id="id_supplier">
+                                        </div>
+                                
+                                                                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_import_product">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table table-sortable" id="table9">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Id Product</th>
+                        <th>Product Name</th>
+                        <th>SKU</th>
+                        <th>Image Product</th>
+                        <th>Import Quantity</th>
+                        <th>Import Price</th>
+                        <th>Export Price</th>
+                        <th>Supplier</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                
+                    </tfoot>
+                <tbody>
+                        
+                        {% for obj in all_import_product_by_id%}
+                        
+                        <tr>
+                            <td>{{obj.id_imp}}</td>
+                            <td>{{obj.id_product.id_product}}</td>
+                            <td>{{obj.id_product.product_name}}</td>
+                            <td>{{obj.id_product.sku}}</td>
+                            <td><img src="{{obj.id_product.image_product.url}}" width="80" height="100" /></td>
+                            <td>{{obj.import_quantity}}</td>
+                            <td>{{obj.import_price}}</td>
+                            <td>{{obj.id_product.export_price}}</td>
+                            <td>{{obj.supplier}}</td>
+                            
+                            
+                            <td>
+                                <div class="setup"> 
+                                    <button class ="icon-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop_import_product_edit_{{obj.id_imp}}" >  <i class="material-icons left">cloud</i>Edit</button>
+                                    <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <input type="hidden" name = "id_pro" value="{{obj.id_product.id_product}}">
+                                        <button name="delete_import_product" class ="icon-delete" value = "{{obj.id_imp}}"><i class="material-icons left" >delete</i>Delete</button>
+                                    </form>
+                                    
+                                    <div class="modal fade" id="staticBackdrop_import_product_edit_{{obj.id_imp}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">EDIT</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <input type="hidden" name = "id_imp" value="{{obj.id_imp}}">
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            {{ add_product_form.sku.label_tag }}
+                                                            <select name="product_id" id="product_sku">
+                                                                {% for product in all_product %}
+    
+                                                                {% if product.id_product == obj.id_product.id_product%}
+                                                                <option value="{{ product.id_product }}" selected>{{ product.sku }}</option>
+                                                                {% endif%}
+    
+                                                                <option value="{{ product.id_product }}">{{ product.sku }}</option>
+                                                                
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            {{import_product_form.import_quantity.label_tag}}
+                                                            <input type="number" name="import_quantity" required="" id="id_import_quantity" value="{{obj.import_quantity}}" >
+                                                        </div>
+                                                
+                                                        <div class="mb-3">
+                                                            {{import_product_form.import_price.label_tag}}
+                                                            <input type="number" name="import_price" required="" id="id_import_price" value="{{obj.import_price}}">
+                                                        </div>
+                                                
+                                                        <div class="mb-3">
+                                                            {{import_product_form.supplier.label_tag}}
+                                                            <input type="text" name="supplier" required="" id="id_supplier" value="{{obj.supplier}}">
+                                                        </div>
+                                            
+                                                        
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary" id="submit-edit-import-product" name="edit_import_product" >Edit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>           
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    
+                </tbody>
+            </table>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {% comment %} cart_management {% endcomment %}
+        <div class="content" id="content11" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input10" class="input" name="text10" type="text" data-table-id="table10">
+                    
+                </div>
+                <div class="dynamic">
+                    
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_cart_add"> Add</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop_cart_add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Cart</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            {{ customer_form.name_customer.label_tag }}
+                                            <select name="customer_id" id="customer_name">
+                                                {% for customer in all_customer %}
+
+                                                <option value="{{ customer.id_customer }}">{{ customer.name_customer }}</option>
+                                                
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                                                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_cart">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-sortable" id="table10">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Id Customer</th>
+                        <th>Customer Name</th>
+                        <th>Total Price</th>
+                        <th>Tình trạng giỏ hàng</th>
+                        <th>Action</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in all_cart_by_id%}
+                    
+                    <tr>
+                        <td>{{obj.id_cart}}</td>
+                        <td>{{obj.id_customer.id_customer}}</td>
+                        <td>{{obj.id_customer.name_customer}}</td>
+                        <td>{{obj.total_price}}</td>
+                        <td>{{obj.activate}}</td>
+                        <td>
+                            <div class="setup"> 
+                                <button class ="icon-edit" value="{{obj.id_cart}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop_cart_edit_{{obj.id_cart}}" >  <i class="material-icons left">cloud</i>Edit</button>
+                                <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <button name="delete_cart" class ="icon-delete" value = "{{obj.id_cart}}"><i class="material-icons left" >delete</i>Delete</button>
+                                </form>
+
+                                <div class="modal fade" id="staticBackdrop_cart_edit_{{obj.id_cart}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <input type="hidden" name="id_cart" value="{{obj.id_cart}}">
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        {{ customer_form.name_customer.label_tag }}
+                                                        <select name="customer_id" id="customer_name">
+                                                            {% for customer in all_customer %}
+                                                            {% if obj.id_customer.id_customer == customer.id_customer%}
+                                                            <option value="{{ customer.id_customer }}" selected>{{ customer.name_customer }}</option>
+                                                            {% endif%}
+                                                            <option value="{{ customer.id_customer }}">{{ customer.name_customer }}</option>
+                                                            
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                                            
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id = "submit-edit-cart" name="edit_cart">Edit</button>
+                                                </div>
+                                                
+            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+        {% comment %} cart_detail {% endcomment %}
+        <div class="content" id="content12" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input11" class="input" name="text11" type="text" data-table-id="table11">
+                    
+                </div>
+                <div class="dynamic">
+                    
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_cart_detail_add"> Add</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop_cart_detail_add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Cart Detail</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            {{ cart_detail_form.id_cart.label_tag }}
+                                            <select name="cart_id" id="card_id">
+                                                {% for cart in all_cart %}
+                                                <option value="{{ cart.id_cart }}">{{ cart.id_cart }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            {{ cart_detail_form.id_product.label_tag }}
+                                            <select name="product_id" id="product_name">
+                                                {% for product in all_product %}
+                                                <option value="{{ product.id_product }}">{{ product.sku }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                
+
+                                        <div class="mb-3">
+                                            {{ order_product_form.id_coupon.label_tag }}
+                                            <select name="coupon_id" id="code">
+                                                {% for coupon in all_coupon %}
+                                                {% if coupon.discount_type == "discount_product" %}
+                                                <option value="{{ coupon.id_coupon }}">{{ coupon.code }}</option>
+                                                {% endif%}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            {{ cart_detail_form.number.label_tag }}
+                                            <input type="number" name="number" required="" id="id_import_quantity" value="{{obj.import_quantity}}" >
+                                        </div>
+                                                                
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_cart_detail">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table table-sortable" id="table11">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Id Cart</th>
+                        <th>Id Product</th>
+                        <th>Product Name</th>
+                        <th>Id Coupon</th>
+                        <th>Code</th>
+                        <th>Number</th>
+                        <th>Price</th>
+                        <th>Status Product</th>
+                        <th>Action</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in all_cart_detail_by_id%}
+                    
+                    <tr>
+                        <td>{{obj.id}}</td>
+                        <td>{{obj.id_cart.id_cart}}</td>
+                        <td>{{obj.id_product.id_product}}</td>
+                        <td>{{obj.id_product.product_name}}</td>
+                        <td>{{obj.id_coupon.id_coupon}}</td>
+                        <td>{{obj.id_coupon.code}}</td>
+                        <td>{{obj.number}}</td>
+                        <td>{{obj.price}}</td>
+                        <td>{{obj.status_product}}</td>
+                        <td>
+                            <div class="setup"> 
+                                <button class ="icon-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop_cart_detail_edit_{{obj.id}}" >  <i class="material-icons left">cloud</i>Edit</button>
+                                <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <button name="delete_cart_detail" class ="icon-delete" value = "{{obj.id}}"><i class="material-icons left" >delete</i>Delete</button>
+                                </form>
+
+                                <div class="modal fade" id="staticBackdrop_cart_detail_edit_{{obj.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <input type="hidden" name ="id" value="{{obj.id}}">
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="mb-3">
+                                                        {{ cart_detail_form.id_cart.label_tag }}
+                                                        <select name="cart_id" id="card_id">
+                                                            {% for cart in all_cart %}
+                                                            <option value="{{ cart.id_cart }}">{{ cart.id_cart }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        {{ cart_detail_form.id_product.label_tag }}
+                                                        <select name="product_id" id="product_name">
+                                                            {% for product in all_product %}
+                                                            <option value="{{ product.id_product }}">{{ product.sku }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                            
+            
+                                                    <div class="mb-3">
+                                                        {{ order_product_form.id_coupon.label_tag }}
+                                                        <select name="coupon_id" id="code">
+                                                            {% for coupon in all_coupon %}
+                                                            {% if coupon.discount_type == "discount_product" %}
+                                                            <option value="{{ coupon.id_coupon }}">{{ coupon.code }}</option>
+                                                            {% endif%}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+            
+                                                    <div class="mb-3">
+                                                        {{ cart_detail_form.number.label_tag }}
+                                                        <input type="number" name="number" min=0 max = {{obj.id_product.product_quantity}} required="" id="id_import_quantity" value="{{obj.import_quantity}}" >
+                                                    </div>
+                                                               
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id = "submit-edit-cart_detail" name="edit_cart_detail">Edit</button>
+                                                </div>
+                                                
+            
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {% comment %} order cart Management {% endcomment %}
+        <div class="content" id="content13" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input12" class="input" name="text12" type="text" data-table-id="table12">
+                    
+                </div>
+                <div class="dynamic">
+                    {% comment %} <button class="learn-more"> Import</button> {% endcomment %}
+                    
+                    <button class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdrop_export_bill"> Export</button>
+
+                    <div class="modal fade" id="staticBackdrop_export_bill" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="post" enctype="multipart/form-data" action="{% url 'dashboard' %}">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Export Bill</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="order_id">Nhập id đơn hàng muốn xuất hóa đơn:</label>
+                                            <select name="order_id" id="order_id">
+                                                    
+                                                {%for obj in all_order_product_by_id %}
+
+                                                <option value="{{ obj.id_order }}">{{ obj.id_order }}</option>
+
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                          
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name= "export_bill">submit</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <button type="button" class="learn-more" data-bs-toggle="modal" data-bs-target="#staticBackdropOrderProduct"> Add</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdropOrderProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Order Product</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="mb-3">
+                                            {{ order_product_form.id_cart.label_tag }}
+                                            <select name="cart_id" id="id_cart">
+                                                {% for cart in all_cart %}
+                                                {% if cart.activate == False%}
+                                                <option value="{{ cart.id_cart }}">{{ cart.id_cart }}</option>
+                                                {%endif%}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            {{ order_product_form.id_coupon.label_tag }}
+                                            <select name="coupon_id" id="code">
+                                                {% for coupon in all_coupon %}
+                                                {% if coupon.discount_type == "discount" %}
+                                                <option value="{{ coupon.id_coupon }}">{{ coupon.code }}</option>
+                                                {% endif%}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            {{order_product_form.order_description.label_tag}}
+                                            <input type="text" name="order_description" required="" id="order_description" >
+                                        </div>
+
+                                        
+                                        <div class="mb-3">
+                                            {{order_product_form.total.label_tag}}
+                                            <input type="number" name="total" required="" id="total">
+                                        </div>
+                                
+                                                          
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="add_order_product">Add</button>
+                                    </div>
+                                    
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <table class="table table-sortable" id="table12">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Id Cart</th>
+                        <th>Id Coupon</th>
+                        <th>Code</th>
+                        <th>Discount Value</th>
+                        <th>Order Description</th>
+                        <th>Total</th>
+                        <th>Payment Status</th>
+                        <th>Order Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                
+                    </tfoot>
+                <tbody>
+                        
+                    {% for obj in all_order_product_by_id%}
+                    
+                    <tr>
+                        <td>{{obj.id_order}}</td>
+                        <td>{{obj.id_cart.id_cart}}</td>
+                        <td>{{obj.id_coupon.id_coupon}}</td>
+                        <td>{{obj.id_coupon.code}}</td>
+                        <td>{{obj.id_coupon.discount_value}}</td>
+                        <td>{{obj.order_description}}</td>
+                        <td>{{obj.total}}</td>
+                        {% for ob in all_order_payment_by_id%}
+                        {%if ob.id_order.id_order == obj.id_order%}
+                        <td>{{ob.payment_status}}</td>
+                        <td>{{ob.order_status}}</td>
+                        
+                        <td>
+                            <div class="setup"> 
+                                <button class ="icon-edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop_order_product_edit_{{obj.id_order}}" >  <i class="material-icons left">cloud</i>Edit</button>
+                                <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden" name = "id_cart" value="{{obj.id_cart.id_cart}}">
+                                    <button name="delete_order_product" class ="icon-delete" value = "{{obj.id_order}}"><i class="material-icons left" >delete</i>Delete</button>
+                                </form>
+                                
+                                <div class="modal fade" id="staticBackdrop_order_product_edit_{{obj.id_order}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <form method="POST" action="{% url 'dashboard'%}" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">EDIT</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    <input type="hidden" name = "id_order" value="{{obj.id_order}}">
+                                                    <input type="hidden" name = "id_payment" value="{{ob.id_payment}}">
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        {{ order_product_form.id_cart.label_tag }}
+                                                        <select name="cart_id" id="id_cart">
+                                                            <option value="{{obj.id_cart.id_cart}}" selected>{{obj.id_cart.id_cart}}</option>
+                                                            {% for cart in all_cart %}
+                                                            {% if cart.activate == False%}
+                                                            <option value="{{ cart.id_cart }}">{{ cart.id_cart }}</option>
+                                                            {%endif%}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+            
+                                                    <div class="mb-3">
+                                                        {{ order_product_form.id_coupon.label_tag }}
+                                                        <select name="coupon_id" id="code">
+                                                            <option value="{{obj.id_coupon.id_coupon}}">{{obj.id_coupon.code}}</option>
+                                                            {% for coupon in all_coupon %}
+                                                            {% if coupon.discount_type == "discount" %}
+                                                            <option value="{{ coupon.id_coupon }}">{{ coupon.code }}</option>
+                                                            {% endif%}
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        {{order_product_form.order_description.label_tag}}
+                                                        <input type="text" name="order_description" required="" id="order_description" value="{{obj.order_description}}">
+                                                    </div>
+            
+                                                    
+                                                    <div class="mb-3">
+                                                        {{order_product_form.total.label_tag}}
+                                                        <input type="number" name="total" required="" id="total" value="{{obj.total}}">
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        {{payment_form.payment_status.label_tag}}
+                                                        <select name="payment_status" id="payment_status">
+                                                            <option value="True">True</option>
+                                                            <option value="False">False</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        {{payment_form.order_status.label_tag}}
+                                                        <select name="order_status" id="order_status">
+                                                            <option value="waiting for confirmation">Waiting for confirmation</option>
+                                                            <option value="canceled">Canceled</option>
+                                                            <option value="confirmed">Confirmed</option>
+                                                            <option value="delivered successfully">Delivered successfully</option>
+                                                        </select>
+                                                    </div>
+                                        
+                                                    
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" id="submit-edit-order-product" name="edit_order_product" >Edit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>           
+                            </div>
+                        </td>
+                        {% endif%}
+                        {% endfor%}
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+
+        </div>
+        {% comment %} on/off display landing page {% endcomment %}
+        <div class="content" id="content14" style="display: none;">
+            <div class="content-header" style="padding-bottom: 15px;">
+                <div class="InputContainer">
+                    <input placeholder="Search.." id="input13" class="input" name="text13" type="text" data-table-id="table13">
+                    
+                </div>
+                <div class="dynamic">
+                    {% comment %} <button class="learn-more"> Import</button>
+                    <button class="learn-more"> Export</button>
+                    <button class="learn-more"> Add</button> {% endcomment %}
+                </div>
+            </div>
+        </div> 
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            /**
+             * Sorts a table by a specific column.
+             * @param {HTMLTableElement} table The table to sort
+             * @param {number} column The index of the column to sort
+             * @param {boolean} asc Determines if the sorting will be in ascending order
+             */
+            function sortTableByColumn(table, column, asc = true) {
+                const dirModifier = asc ? 1 : -1;
+                const tBody = table.tBodies[0];
+                const rows = Array.from(tBody.querySelectorAll("tr"));
+
+                // Sort each row
+                const sortedRows = rows.sort((a, b) => {
+                    const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+                    const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+
+                    return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
+                });
+
+                // Remove all existing TRs from the table
+                while (tBody.firstChild) {
+                    tBody.removeChild(tBody.firstChild);
+                }
+
+                // Re-add the newly sorted rows
+                tBody.append(...sortedRows);
+
+                // Remember how the column is currently sorted
+                table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
+                table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-asc", asc);
+                table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-desc", !asc);
+            }
+
+            document.querySelectorAll(".table-sortable th").forEach(headerCell => {
+                headerCell.addEventListener("click", () => {
+                    const tableElement = headerCell.parentElement.parentElement.parentElement;
+                    const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
+                    const currentIsAscending = headerCell.classList.contains("th-sort-asc");
+
+                    sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
+                });
+            });
+        });
+    </script>
+        
+
+    <script>
+        // ... Các đoạn JavaScript khác ...
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy tất cả các ô input có class 'input'
+            const searchInputs = document.querySelectorAll('.input');
+        
+            // Lắng nghe sự kiện 'input' trên từng ô input
+            searchInputs.forEach(input => {
+                input.addEventListener('input', function () {
+                    // Thu thập giá trị tìm kiếm từ ô input hiện tại
+                    const searchTerm = input.value.toLowerCase();
+                    // Lấy id của bảng từ data attribute
+                    const tableId = this.dataset.tableId; 
+                    // Tìm bảng theo ID
+                    const table = document.getElementById(tableId);
+                    if (!table) return; // Nếu không tìm thấy bảng nào, thoát khỏi hàm
+        
+                    // Lấy tất cả các hàng trong bảng
+                    const tableRows = table.querySelectorAll('tbody tr'); 
+        
+                    tableRows.forEach(row => {
+                        // Lấy giá trị của các ô trong các cột cần tìm kiếm
+                        const customerName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                        const email = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                        const phone = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
+                        const tax = row.querySelector('td:nth-child(5)').textContent.toLowerCase();
+                        const tix = row.querySelector('td:nth-child(6)').textContent.toLowerCase();
+                        const tok = row.querySelector('td:nth-child(7)').textContent.toLowerCase();
+                        // Kiểm tra xem hàng có khớp với giá trị tìm kiếm không
+                        const matches = customerName.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm)|| tax.includes(searchTerm)|| tix.includes(searchTerm)|| tok.includes(searchTerm);
+        
+                        // Hiển thị hoặc ẩn hàng dựa trên kết quả kiểm tra
+                        if (matches) {
+                            row.style.display = ''; // Hiển thị dòng
+                        } else {
+                            row.style.display = 'none'; // Ẩn dòng
+                        }
+                    });
+                });
+            });
+        });
+
+        
+
+    </script>
+</body>
+</body>
+
+</html>
